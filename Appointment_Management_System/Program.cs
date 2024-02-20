@@ -2,7 +2,7 @@
  Requirements of projects
 
     List of employees working in a company.
-    Employees : start and end time, position.
+    Employees : start and end slots time, position.
 
    Problem Statement: Book an appointment
 
@@ -15,11 +15,20 @@
             Send the booked date via email to both employee and client
 
     Employee Class:
-            Id
+            Id                                                                                           
             Name
             Position
-            Working Time
+            Available slots
             
  */
+using Appointment_Management_System;
+
 Console.WriteLine("Hello, World!");
 Console.WriteLine("This is Appointment Management System");
+
+Employee e1  = new Employee();
+Employee e2  = new Employee();
+e1.EmployeeName = "Test";
+e2.EmployeeName = "Test1";
+Console.WriteLine($"Employee {e1.EmployeeName}");
+Console.WriteLine($"Employee {e2.EmployeeName}");
