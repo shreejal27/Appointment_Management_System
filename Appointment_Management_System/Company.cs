@@ -8,29 +8,18 @@ namespace Appointment_Management_System
 {
     internal class Company
     {
-        private int companyId;
-        private string companyName = string.Empty;
-        private string companyLocation = string.Empty;
-        private string companyDescription = string.Empty;
 
-
-        public int CompanyId
+        public int Id
         {
             get;
             set;
         }
-        public string CompanyName
+        public string? Name
         {
-            get
-            {
-                return companyName; 
-            }
-            set
-            {
-                companyName = value.Length > 50 ? value[..50] : value; 
-            }
+            get;
+            set;
         }
-        public string? CompanyLocation
+        public string? Location
         {
             get; set;
         }

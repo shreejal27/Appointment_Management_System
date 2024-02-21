@@ -22,6 +22,7 @@
             
  */
 using Appointment_Management_System;
+using System.Diagnostics.Metrics;
 
 //Application Heading
 
@@ -56,12 +57,20 @@ Console.WriteLine("This is Appointment Management System");
 //Console.WriteLine($"Employee {e1.EmployeeName}");
 //Console.WriteLine($"Employee {e2.EmployeeName}");
 
+//calling the main menu at the start
+mainMenu();
+
+//main menu method
+static void mainMenu()
+{
+
     bool flag;
 do
 {
     Console.WriteLine("Choose an option:");
-    Console.WriteLine("1 => Sign In");
+    Console.WriteLine("1 => Login");
     Console.WriteLine("2 => Register");
+    Console.WriteLine("3 => View Clients");
     Console.WriteLine("9 => To exit the application");
     Console.WriteLine();
 
@@ -76,13 +85,22 @@ do
         switch (option)
         {
             case 1:
-                Console.WriteLine("Case 1 Selected");
-                break;
-            case 2:
-                Console.WriteLine("Case 2 Selected");
+                Console.WriteLine("Login");
+                login();
                 break;
 
-            case 9:
+            case 2:
+                Console.WriteLine("Register");
+                register();
+                break;
+
+            case 3:
+                 Console.WriteLine("viewing");
+                    Client.ViewClients();
+                    mainMenu();
+                    break;
+
+                case 9:
                 Console.WriteLine("\tExiting the application ...");
                 Console.WriteLine();
                 return;
@@ -103,4 +121,141 @@ do
 
     }
 } while (flag);
+}
+
+//signIn method
+static void login()
+{
+    Console.WriteLine("Sign In selected");
+    bool loginFlag;
+    do
+    {
+        Console.WriteLine("Sign In As:");
+        Console.WriteLine("1 => Employee");
+        Console.WriteLine("2 => Client");
+        Console.WriteLine("7 => Go To Main Menu");
+        Console.WriteLine("9 => To exit the application");
+        Console.WriteLine();
+
+        Console.Write("Your Option: ");
+
+        var optionInput = Console.ReadLine();
+
+        if (int.TryParse(optionInput, out int option))
+        {
+            loginFlag = false;
+            Console.WriteLine();
+            switch (option)
+            {
+                case 1:
+                    Console.WriteLine("Signed In As an Employee");
+                    break;
+
+                case 2:
+                    Console.WriteLine("Enter Your Name");
+                    string name = Console.ReadLine();
+                    Console.WriteLine("Enter Your Email");
+                    string email = Console.ReadLine();
+                    bool loginResult = Client.SearchClient(name, email);
+                    if (loginResult)
+                    { 
+                    Console.WriteLine("Signed In As a Client");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Login Failed. Try Again");
+                    }
+                    break;
+
+                case 7:
+                    Console.WriteLine("Going Back");
+                    mainMenu();
+                    break;
+
+                case 9:
+                    Console.WriteLine("\tExiting the application ...");
+                    Console.WriteLine();
+                    return;
+
+                default:
+                    loginFlag = true;
+                    Console.WriteLine("\tPlease choose from above options only.");
+                    Console.WriteLine();
+                    break;
+            }
+        }
+        else
+        {
+            loginFlag = true;
+            Console.WriteLine();
+            Console.WriteLine("\tError !!! Please Input Integers Only");
+            Console.WriteLine();
+
+        }
+    } while (loginFlag);
+}
+
+//register method
+static void register()
+{
+    Console.WriteLine("Register Selected");
+    bool registerFlag;
+    do
+    {
+        Console.WriteLine("Register As:");
+        Console.WriteLine("1 => Employee");
+        Console.WriteLine("2 => Client");
+        Console.WriteLine("7 => Go to Main Menu");
+        Console.WriteLine("9 => To exit the application");
+        Console.WriteLine();
+
+        Console.Write("Your Option: ");
+
+        var optionInput = Console.ReadLine();
+
+        if (int.TryParse(optionInput, out int option))
+        {
+            registerFlag = false;
+            Console.WriteLine();
+            switch (option)
+            {
+                case 1:
+                    Console.WriteLine("Registered As an Employee");
+                    Employee employee = new Employee(1,"shree", "shree@gmail.com", "IT", "Aloi");
+                    break;
+
+                case 2:
+                    Console.WriteLine("Registered As a Client");
+                    Client.AddClient();
+                    mainMenu();
+                    break;
+
+                case 7:
+                    Console.WriteLine("Going Back");
+                    mainMenu();
+                    break;
+
+                case 9:
+                    Console.WriteLine("\tExiting the application ...");
+                    Console.WriteLine();
+                    return;
+
+                default:
+                    registerFlag = true;
+                    Console.WriteLine("\tPlease choose from above options only.");
+                    Console.WriteLine();
+                    break;
+            }
+        }
+        else
+        {
+            registerFlag = true;
+            Console.WriteLine();
+            Console.WriteLine("\tError !!! Please Input Integers Only");
+            Console.WriteLine();
+
+        }
+    } while (registerFlag);
+}
+
 
