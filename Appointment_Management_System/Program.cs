@@ -50,13 +50,6 @@ Console.WriteLine();
 
 Console.WriteLine("This is Appointment Management System");
 
-//Employee e1  = new Employee();
-//Employee e2  = new Employee();
-//e1.EmployeeName = "Test";
-//e2.EmployeeName = "Test1";
-//Console.WriteLine($"Employee {e1.EmployeeName}");
-//Console.WriteLine($"Employee {e2.EmployeeName}");
-
 //calling the main menu at the start
 mainMenu();
 
@@ -65,62 +58,63 @@ static void mainMenu()
 {
 
     bool flag;
-do
-{
-    Console.WriteLine("Choose an option:");
-    Console.WriteLine("1 => Login");
-    Console.WriteLine("2 => Register");
-    Console.WriteLine("3 => View Clients");
-    Console.WriteLine("9 => To exit the application");
-    Console.WriteLine();
-
-    Console.Write("Your Option: ");
-
-    var optionInput = Console.ReadLine();
-
-    if (int.TryParse(optionInput, out int option))
+    do
     {
-        flag = false;
+        Console.WriteLine("Choose an option:");
+        Console.WriteLine("1 => Login");
+        Console.WriteLine("2 => Register");
+        Console.WriteLine("3 => View Clients");
+        Console.WriteLine("9 => To exit the application");
         Console.WriteLine();
-        switch (option)
+
+        Console.Write("Your Option: ");
+
+        var optionInput = Console.ReadLine();
+
+        if (int.TryParse(optionInput, out int option))
         {
-            case 1:
-                Console.WriteLine("Login");
-                login();
-                break;
+            flag = false;
+            Console.WriteLine();
+            switch (option)
+            {
+                case 1:
+                    Console.WriteLine("Login");
+                    login();
+                    break;
 
-            case 2:
-                Console.WriteLine("Register");
-                register();
-                break;
+                case 2:
+                    Console.WriteLine("Register");
+                    register();
+                    break;
 
-            case 3:
-                 Console.WriteLine("viewing");
+                case 3:
+                    Console.WriteLine("viewing");
                     Client.ViewClients();
+                    Employee.ViewEmployee();
                     mainMenu();
                     break;
 
                 case 9:
-                Console.WriteLine("\tExiting the application ...");
-                Console.WriteLine();
-                return;
+                    Console.WriteLine("\tExiting the application ...");
+                    Console.WriteLine();
+                    return;
 
-            default:
-                flag = true;
-                Console.WriteLine("\tPlease choose from above options only.");
-                Console.WriteLine();
-                break;
+                default:
+                    flag = true;
+                    Console.WriteLine("\tPlease choose from above options only.");
+                    Console.WriteLine();
+                    break;
+            }
         }
-    }
-    else
-    {
-        flag = true;
-                Console.WriteLine();
-        Console.WriteLine("\tError !!! Please Input Integers Only");
-                Console.WriteLine();
+        else
+        {
+            flag = true;
+            Console.WriteLine();
+            Console.WriteLine("\tError !!! Please Input Integers Only");
+            Console.WriteLine();
 
-    }
-} while (flag);
+        }
+    } while (flag);
 }
 
 //signIn method
@@ -148,18 +142,27 @@ static void login()
             switch (option)
             {
                 case 1:
-                    Console.WriteLine("Signed In As an Employee");
+                    (string, string) employeeCredentials = AskCredentials();
+                    bool employeeLoginResult = Employee.SearchEmployee(employeeCredentials.Item1, employeeCredentials.Item2);
+                    if (employeeLoginResult)
+                    {
+                        Console.WriteLine("Hello " + employeeCredentials.Item1);
+               
+                    }
+                    else
+                    {
+                        Console.WriteLine("Login Failed. Try Again");
+                    }
                     break;
 
                 case 2:
-                    Console.WriteLine("Enter Your Name");
-                    string name = Console.ReadLine();
-                    Console.WriteLine("Enter Your Email");
-                    string email = Console.ReadLine();
-                    bool loginResult = Client.SearchClient(name, email);
-                    if (loginResult)
-                    { 
-                    Console.WriteLine("Signed In As a Client");
+                    (string, string) clientCredentials = AskCredentials();
+
+                    bool clientLoginResult = Client.SearchClient(clientCredentials.Item1, clientCredentials.Item2);
+                    if (clientLoginResult)
+                    {
+                        Console.WriteLine("Hello " + clientCredentials.Item1);
+                        Company.ViewCompanies();
                     }
                     else
                     {
@@ -221,7 +224,8 @@ static void register()
             {
                 case 1:
                     Console.WriteLine("Registered As an Employee");
-                    Employee employee = new Employee(1,"shree", "shree@gmail.com", "IT", "Aloi");
+                    Employee.AddEmployee();
+                    mainMenu();
                     break;
 
                 case 2:
@@ -258,4 +262,13 @@ static void register()
     } while (registerFlag);
 }
 
+
+static (string, string) AskCredentials()
+{
+    Console.WriteLine("Enter Your Name");
+    string name = Console.ReadLine();
+    Console.WriteLine("Enter Your Email");
+    string email = Console.ReadLine();
+    return (name, email);
+}
 
