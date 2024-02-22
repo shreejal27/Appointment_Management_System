@@ -8,7 +8,7 @@ using System.Xml.Linq;
 
 namespace Appointment_Management_System
 {
-    internal class Company
+    public class Company
     {
 
         public int Id
@@ -40,22 +40,9 @@ namespace Appointment_Management_System
             Name = name;
             Location = location;
             Description = description;
+            CompanyList.Add(this);
         }
-
-        static Company()
-        {
-            Company c1 = new Company(1, "Aloi", "kuleshwor", "lorem");
-            CompanyList.Add(c1);   
-            Company c2 = new Company(2, "ABC", "balkhu", "motors");
-            CompanyList.Add(c2);   
-            Company c3 = new Company(3, "XYZ", "kalanki", "recruiting");
-            CompanyList.Add(c3);      
-            Company c4 = new Company(4, "Hello", "teku", "hospital");
-            CompanyList.Add(c4);      
-            Company c5 = new Company(3, "Samsu", "kalimati", "mobile");
-            CompanyList.Add(c5);
-            
-        } 
+      
         public static void ViewCompanies()
         {
             Console.WriteLine("List of Registered Companies:");
@@ -75,6 +62,27 @@ namespace Appointment_Management_System
                     return Company.Name;
             }
             return "";
+        }
+
+        public static void SelectCompany()
+        {
+            Console.WriteLine("Choose a company you want to view");
+            int userSelectedCompany = int.Parse(Console.ReadLine());
+            string userSelectedCompanyName= ValidateCompany(userSelectedCompany);
+            if(userSelectedCompanyName != "")
+            {
+                Console.WriteLine($"You selected {userSelectedCompanyName}");
+                string userSelectedPosition = Employee.CheckAllPositionsInCompany(userSelectedCompanyName);
+
+                Employee.ViewEmployeesFromPosition(userSelectedCompanyName, userSelectedPosition);
+
+               
+
+            }
+            else
+            {
+                Console.WriteLine("PLease select valid company");
+            }
         }
 
     }

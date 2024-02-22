@@ -27,16 +27,16 @@ using System.Diagnostics.Metrics;
 //Application Heading
 
 Console.Write(@"
- __      __   _                  
- \ \    / /__| |__ ___ _ __  ___ 
-  \ \/\/ / -_) / _/ _ \ '  \/ -_)
-   \_/\_/\___|_\__\___/_|_|_\___|            
+        __      __   _                  
+        \ \    / /__| |__ ___ _ __  ___ 
+         \ \/\/ / -_) / _/ _ \ '  \/ -_)
+          \_/\_/\___|_\__\___/_|_|_\___|            
 ");
 Console.Write(@"
-  _____    
- |_   _|__ 
-   | |/ _ \
-   |_|\___/
+                    _____    
+                   |_   _|__ 
+                     | |/ _ \
+                     |_|\___/
 ");
 Console.Write(@"
     _                  _     _                 _     ___         _             
@@ -49,6 +49,35 @@ Console.Write(@"
 Console.WriteLine();
 
 Console.WriteLine("This is Appointment Management System");
+
+
+Company c1 = new Company(1, "Aloi", "kuleshwor", "lorem");
+
+Company c2 = new Company(2, "ABC", "balkhu", "motors");
+
+Company c3 = new Company(3, "XYZ", "kalanki", "recruiting");
+
+Company c4 = new Company(4, "Hello", "teku", "hospital");
+
+Company c5 = new Company(5, "Samsu", "kalimati", "mobile");
+
+Client client1 = new Client(1,"asdf", "asdf");
+
+Employee e1 = new Employee(1, "employee", "employee@gmail.com", "sales", "Aloi");
+e1.AddAppointmentDate(new DateTime(2024, 2, 21, 10, 0, 0)); 
+e1.AddAppointmentDate(new DateTime(2024, 2, 21, 12, 0, 0)); 
+
+Employee e2 = new Employee(2, "shree", "shree", "sales", "Aloi");
+
+Employee e3 = new Employee(3, "iwjar", "iwjar27@gmail.com", "IT", "Aloi");
+
+Employee e4 = new Employee(4, "as", "as@gmail.com", "sales", "XYZ");
+
+Employee e5 = new Employee(5, "www", "www@gmail.com", "HR", "XYZ");
+
+Employee e6 = new Employee(6, "kkk", "kkk@gmail.com", "Founder", "XYZ");
+
+Employee e7 = new Employee(7, "jjj", "jjj@gmail.com", "CEO", "Samsu");
 
 //calling the main menu at the start
 mainMenu();
@@ -163,6 +192,9 @@ static void login()
                     {
                         Console.WriteLine("Hello " + clientCredentials.Item1);
                         Company.ViewCompanies();
+                        Company.SelectCompany();
+                        mainMenu();
+
                     }
                     else
                     {

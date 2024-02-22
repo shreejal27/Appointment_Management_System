@@ -10,7 +10,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Appointment_Management_System
 {
-    internal class Client
+    public class Client
     {
         private static List<Client> ClientList = new List<Client>();
         public int Id
@@ -43,6 +43,7 @@ namespace Appointment_Management_System
             Id = id;
             Name = name;
             Email = email;
+            ClientList.Add(this);
         }
 
        
@@ -67,7 +68,6 @@ namespace Appointment_Management_System
             Console.Write("Enter your email: ");
             string email = Console.ReadLine();
             Client client = new(id, name, email);
-            ClientList.Add(client);
         }
 
         public static bool SearchClient(string name, string email)
@@ -78,6 +78,21 @@ namespace Appointment_Management_System
                     return true;
             }
                     return false;
+        }
+
+        public static void BookAppointment(string employeeName, DateTime appointmentDate)
+        {
+            Console.WriteLine("Book Appointment method Called");
+            Console.WriteLine();
+            Console.WriteLine(employeeName);
+            Console.WriteLine(appointmentDate);
+
+            bool appointmentResult = Employee.ValidateAppointmentValues(employeeName, appointmentDate);
+
+            if (appointmentResult)
+            {
+                Employee.ConfirmAppointment(employeeName, appointmentDate);
+            }
         }
 
     }
