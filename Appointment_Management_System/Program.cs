@@ -51,15 +51,15 @@ Console.WriteLine();
 Console.WriteLine("This is Appointment Management System");
 
 
-Company c1 = new Company(1, "Aloi", "kuleshwor", "lorem");
+Company c1 = new Company(1, "Aloi", "kuleshwor", "lorem", "abc@gmail.com");
 
-Company c2 = new Company(2, "ABC", "balkhu", "motors");
+Company c2 = new Company(2, "ABC", "balkhu", "motors", "abc@gmail.com");
 
-Company c3 = new Company(3, "XYZ", "kalanki", "recruiting");
+Company c3 = new Company(3, "XYZ", "kalanki", "recruiting", "abc@gmail.com");
 
-Company c4 = new Company(4, "Hello", "teku", "hospital");
+Company c4 = new Company(4, "Hello", "teku", "hospital", "abc@gmail.com");
 
-Company c5 = new Company(5, "Samsu", "kalimati", "mobile");
+Company c5 = new Company(5, "Samsu", "kalimati", "mobile", "abc@gmail.com");
 
 Client client1 = new Client(1,"asdf", "asdf");
 
@@ -193,6 +193,7 @@ static void login()
                         Console.WriteLine("Hello " + clientCredentials.Item1);
                         Company.ViewCompanies();
                         Company.SelectCompany();
+                        Client.SendClientEmail(clientCredentials.Item1);
                         mainMenu();
 
                     }

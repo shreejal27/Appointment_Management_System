@@ -31,15 +31,21 @@ namespace Appointment_Management_System
             get; set;
         }
 
+        public string? Email
+        {
+            get; set;
+        }
+
         private static List<Company> CompanyList = new List<Company>();
 
 
-        public Company(int id, string name, string location, string description)
+        public Company(int id, string name, string location, string description, string email)
         {
             Id = id;
             Name = name;
             Location = location;
             Description = description;
+            Email = email;
             CompanyList.Add(this);
         }
       

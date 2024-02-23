@@ -95,5 +95,10 @@ namespace Appointment_Management_System
             }
         }
 
+        public static void SendClientEmail(string name)
+        {
+            Console.WriteLine("Email Sent to client: " + name);
+        }
+
     }
 }

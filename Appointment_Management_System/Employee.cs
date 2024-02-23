@@ -191,6 +191,8 @@ namespace Appointment_Management_System
                                 if (appDate == appointmentDate)
                                 {
                                     Employee.appointmentDates.Remove(appointmentDate);
+                                    SendEmailEmployee(Employee.name);
+                                   
                                 }
                             }
                         }
@@ -202,6 +204,11 @@ namespace Appointment_Management_System
                 }
 
             }
+        }
+
+        public static void SendEmailEmployee(string employeeName)
+        {
+            Console.WriteLine("Email Sent to employee: " + employeeName);
         }
 
     }
