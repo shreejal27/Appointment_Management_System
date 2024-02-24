@@ -173,7 +173,7 @@ namespace Appointment_Management_System
 
         }
 
-        public static void ConfirmAppointment(string employeeName, DateTime appDate)
+        public static bool ConfirmAppointment(string employeeName, DateTime appDate)
         {
             Console.WriteLine("Confirm Appointment ? (y/n)");
             char a = char.Parse(Console.ReadLine());
@@ -191,8 +191,8 @@ namespace Appointment_Management_System
                                 if (appDate == appointmentDate)
                                 {
                                     Employee.appointmentDates.Remove(appointmentDate);
-                                    SendEmailEmployee(Employee.name);
-                                   
+                                    Company.SendEmailEmployee(Employee.name);
+                                    return true;
                                 }
                             }
                         }
@@ -201,14 +201,14 @@ namespace Appointment_Management_System
                 }
                 catch (Exception ex) { 
                     Console.WriteLine(ex.Message); 
+                    return false;
                 }
 
             }
-        }
-
-        public static void SendEmailEmployee(string employeeName)
-        {
-            Console.WriteLine("Email Sent to employee: " + employeeName);
+            else
+            {
+                return false;
+            }
         }
 
     }

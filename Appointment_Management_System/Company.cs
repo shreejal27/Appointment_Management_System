@@ -91,5 +91,14 @@ namespace Appointment_Management_System
             }
         }
 
+        public static void SendEmailEmployee(string employeeName)
+        {
+            Console.WriteLine("Email Sent to employee: " + employeeName);
+        }
+        public static void SendEmailClient(string clientName)
+        {
+            Console.WriteLine("Email Sent to client: " + clientName);
+        }
+
     }
 }
