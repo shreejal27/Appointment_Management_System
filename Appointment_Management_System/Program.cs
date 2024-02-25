@@ -10,7 +10,6 @@
             Client wants to talk to a specific position of the company
             Check if there is the position in system, if yes list number of employees in the position, 
             Ask user to input time of appointment, take input time and check if slots are available within that time period,
-                if no slots suggest the nearest time to user
                 if open slots book the appointment with the employee
             Send the booked date via email to both employee and client
 
@@ -61,7 +60,7 @@ Company c4 = new Company(4, "Hello", "teku", "hospital", "abc@gmail.com");
 
 Company c5 = new Company(5, "Samsu", "kalimati", "mobile", "abc@gmail.com");
 
-Client client1 = new Client(1,"asdf", "vipervalorant27@gmail.com");
+Client client1 = new Client(1,"asdf", "asdf");
 
 Employee e1 = new Employee(1, "employee", "vipervalorant27@gmail.com", "sales", "Aloi");
 e1.AddAppointmentDate(new DateTime(2024, 2, 21, 10, 0, 0)); 

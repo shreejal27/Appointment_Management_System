@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -70,34 +72,75 @@ namespace Appointment_Management_System
             return "";
         }
 
+        //to view a specific company by user
         public static void SelectCompany()
         {
-            Console.WriteLine("Choose a company you want to view");
-            int userSelectedCompany = int.Parse(Console.ReadLine());
-            string userSelectedCompanyName= ValidateCompany(userSelectedCompany);
-            if(userSelectedCompanyName != "")
+            bool counter = true;
+            do
             {
-                Console.WriteLine($"You selected {userSelectedCompanyName}");
-                string userSelectedPosition = Employee.CheckAllPositionsInCompany(userSelectedCompanyName);
 
-                Employee.ViewEmployeesFromPosition(userSelectedCompanyName, userSelectedPosition);
+                Console.WriteLine("Choose a company you want to view");
+                int userSelectedCompany = int.Parse(Console.ReadLine());
+                string userSelectedCompanyName = ValidateCompany(userSelectedCompany);
 
-               
 
-            }
-            else
-            {
-                Console.WriteLine("PLease select valid company");
-            }
+                if (userSelectedCompanyName != "")
+                {
+                    Console.WriteLine($"You selected {userSelectedCompanyName}");
+                    string userSelectedPosition = Employee.CheckAllPositionsInCompany(userSelectedCompanyName);
+
+                    Employee.ViewEmployeesFromPosition(userSelectedCompanyName, userSelectedPosition);
+                    counter = false;
+
+                }
+                else
+                {
+                    Console.WriteLine("PLease select valid company");
+                }
+            } while (counter);
         }
 
         public static void SendEmailEmployee(string employeeName)
         {
-            Console.WriteLine("Email Sent to employee: " + employeeName);
+            string fromMail = "shreejal27@gmail.com";
+            string fromPassword = "vvssfwtuqgwyugzl";
+            
+            MailMessage message = new MailMessage();
+            message.From = new MailAddress(fromMail);
+            message.Subject = "Appointment Booked";
+            message.To.Add(new MailAddress("vipervalorant27@gmail.com"));
+            message.Body = "<html><body>This is from Console Application. This is for Employee mail send by Company </body><html>";
+            message.IsBodyHtml = true;
+
+            var smtpClient = new SmtpClient("smtp.gmail.com")
+            {
+                Port = 587,
+                Credentials = new NetworkCredential(fromMail, fromPassword),
+                EnableSsl = true,
+            };
+
+            smtpClient.Send(message);
         }
         public static void SendEmailClient(string clientName)
         {
-            Console.WriteLine("Email Sent to client: " + clientName);
+            string fromMail = "shreejal27@gmail.com";
+            string fromPassword = "vvssfwtuqgwyugzl";
+
+            MailMessage message = new MailMessage();
+            message.From = new MailAddress(fromMail);
+            message.Subject = "Appointment Booked";
+            message.To.Add(new MailAddress("vipervalorant27@gmail.com"));
+            message.Body = "<html><body>This is from Console Application. This is for Client mail send by Company </body><html>";
+            message.IsBodyHtml = true;
+
+            var smtpClient = new SmtpClient("smtp.gmail.com")
+            {
+                Port = 587,
+                Credentials = new NetworkCredential(fromMail, fromPassword),
+                EnableSsl = true,
+            };
+
+            smtpClient.Send(message);
         }
 
     }

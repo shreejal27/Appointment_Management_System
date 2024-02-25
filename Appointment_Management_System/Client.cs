@@ -68,6 +68,7 @@ namespace Appointment_Management_System
             Console.Write("Enter your email: ");
             string email = Console.ReadLine();
             Client client = new(id, name, email);
+
         }
 
         public static bool SearchClient(string name, string email)

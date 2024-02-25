@@ -125,18 +125,40 @@ namespace Appointment_Management_System
 
         public static string CheckAllPositionsInCompany(string userSelectedCompany)
         {
+
             foreach (var Employee in EmployeeList)
             {
                 if (Employee.company == userSelectedCompany)
                     EmployeePosition.Add(Employee.position);
             }
-            foreach (var Position in EmployeePosition.Distinct())
+            if (EmployeePosition.Count > 0)
             {
-                Console.WriteLine(Position);
+
+                foreach (var Position in EmployeePosition.Distinct())
+                {
+                    Console.WriteLine(Position);
+                }
+                Console.WriteLine("Select a position");
+                string userSelectPosition = Console.ReadLine();
+
+                if (EmployeePosition.Contains(userSelectPosition))
+                {
+                return userSelectPosition;
+
+                }
+                else
+                {
+                    Console.WriteLine("Invalid position. Please select from the list.");
+                    return CheckAllPositionsInCompany(userSelectedCompany);
+                }
             }
-            Console.WriteLine("Select a position");
-            string userSelectPosition = Console.ReadLine();
-            return userSelectPosition;
+            else
+            {
+                Console.WriteLine("There are no employees/positions in this company !!");
+                 Company.SelectCompany();
+                return "";
+            }
+
         }
 
         public static void ViewEmployeesFromPosition(string companyname, string position)
@@ -173,41 +195,32 @@ namespace Appointment_Management_System
 
         }
 
-        public static bool ConfirmAppointment(string employeeName, DateTime appDate)
+        public static void ConfirmAppointment(string employeeName, DateTime appDate)
         {
             Console.WriteLine("Confirm Appointment ? (y/n)");
             char a = char.Parse(Console.ReadLine());
             if (a == 'y')
             {
-                try
+                foreach (var Employee in EmployeeList)
                 {
-
-                    foreach (var Employee in EmployeeList)
+                    if (Employee.name == employeeName)
                     {
-                        if (Employee.name == employeeName)
+                        foreach (var appointmentDate in Employee.appointmentDates.ToList())
                         {
-                            foreach (var appointmentDate in Employee.appointmentDates.ToList())
+                            if (appDate == appointmentDate)
                             {
-                                if (appDate == appointmentDate)
-                                {
-                                    Employee.appointmentDates.Remove(appointmentDate);
-                                    Company.SendEmailEmployee(Employee.name);
-                                    return true;
-                                }
+                                Employee.appointmentDates.Remove(appointmentDate);
+                                Company.SendEmailEmployee(Employee.name);
+
                             }
                         }
-
                     }
-                }
-                catch (Exception ex) { 
-                    Console.WriteLine(ex.Message); 
-                    return false;
-                }
 
+                }
             }
             else
             {
-                return false;
+                Console.WriteLine();
             }
         }
 
