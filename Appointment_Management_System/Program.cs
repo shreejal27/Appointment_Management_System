@@ -50,21 +50,21 @@ Console.WriteLine();
 Console.WriteLine("This is Appointment Management System");
 
 
-Company c1 = new Company(1, "Aloi", "kuleshwor", "lorem", "shreejal27@gmail.com");
+Company c1 = new Company(1, "Aloi", "kuleshwor", "lorem lorem lorem", "shreejal27@gmail.com");
 
 Company c2 = new Company(2, "ABC", "balkhu", "motors", "abc@gmail.com");
 
 Company c3 = new Company(3, "XYZ", "kalanki", "recruiting", "abc@gmail.com");
 
-Company c4 = new Company(4, "Hello", "teku", "hospital", "abc@gmail.com");
+Company c4 = new Company(4, "Hello", "bafal", "hospital", "abc@gmail.com");
 
 Company c5 = new Company(5, "Samsu", "kalimati", "mobile", "abc@gmail.com");
 
-Client client1 = new Client(1,"asdf", "asdf");
+Client client1 = new Client(1, "asdf", "asdf");
 
 Employee e1 = new Employee(1, "employee", "vipervalorant27@gmail.com", "sales", "Aloi");
-e1.AddAppointmentDate(new DateTime(2024, 2, 21, 10, 0, 0)); 
-e1.AddAppointmentDate(new DateTime(2024, 2, 21, 12, 0, 0)); 
+e1.AddAppointmentDate(new DateTime(2024, 2, 21, 10, 0, 0));
+e1.AddAppointmentDate(new DateTime(2024, 2, 21, 12, 0, 0));
 
 Employee e2 = new Employee(2, "shree", "shree", "sales", "Aloi");
 
@@ -171,34 +171,42 @@ static void login()
             {
                 case 1:
                     (string, string) employeeCredentials = AskCredentials();
+                    Console.WriteLine();
                     bool employeeLoginResult = Employee.SearchEmployee(employeeCredentials.Item1, employeeCredentials.Item2);
                     if (employeeLoginResult)
                     {
                         Console.WriteLine("Hello " + employeeCredentials.Item1);
-               
+
                     }
                     else
                     {
-                        Console.WriteLine("Login Failed. Try Again");
+                        Console.WriteLine("Please Enter Valid Credentials !!");
                     }
                     break;
 
                 case 2:
                     (string, string) clientCredentials = AskCredentials();
 
+                    Console.WriteLine();
                     bool clientLoginResult = Client.SearchClient(clientCredentials.Item1, clientCredentials.Item2);
                     if (clientLoginResult)
                     {
-                        Console.WriteLine("Hello " + clientCredentials.Item1);
+                        string greetingMessage = greetings();
+                        Console.WriteLine(greetingMessage + " " +  clientCredentials.Item1);
+                        Console.WriteLine();
                         Company.ViewCompanies();
                         Company.SelectCompany();
-                        Company.SendEmailClient(clientCredentials.Item1);
+                        if (Employee.EmailFlag > 0)
+                        {
+                            Company.SendEmailClient(clientCredentials.Item1);
+                        }
                         mainMenu();
 
                     }
                     else
                     {
-                        Console.WriteLine("Login Failed. Try Again");
+                        Console.WriteLine("Please Enter Valid Credentials !!");
+                        login();
                     }
                     break;
 
@@ -297,10 +305,33 @@ static void register()
 
 static (string, string) AskCredentials()
 {
-    Console.WriteLine("Enter Your Name");
+    Console.Write("Enter Your Name: ");
     string name = Console.ReadLine();
-    Console.WriteLine("Enter Your Email");
+    Console.Write("Enter Your Email: ");
     string email = Console.ReadLine();
     return (name, email);
 }
 
+
+static string greetings()
+{
+    DateTime currentTime = DateTime.Now;
+    int hour = currentTime.Hour;
+
+    if (hour >= 5 && hour < 12)
+    {
+        return "Good morning!";
+    }
+    else if (hour >= 12 && hour < 18)
+    {
+        return "Good afternoon!";
+    }
+    else if (hour >= 18 && hour < 22)
+    {
+        return "Good evening!";
+    }
+    else
+    {
+        return "Good night!";
+    }
+}

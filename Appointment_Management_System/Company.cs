@@ -53,13 +53,16 @@ namespace Appointment_Management_System
       
         public static void ViewCompanies()
         {
-            Console.WriteLine("List of Registered Companies:");
+            Console.WriteLine("\t\tList of Registered Companies");
             Console.WriteLine();
-            Console.WriteLine("Id\t Name\t Location \t Description");
+            Console.WriteLine("\t------------------------------------------------");
+            Console.WriteLine("\t Id  |  Name   |  Location   |  Description");
+            Console.WriteLine("\t------------------------------------------------");
             foreach (var company in CompanyList)
             {
-                Console.WriteLine($"{company.Id}\t {company.Name}\t {company.Location}\t {company.Description}");
+                Console.WriteLine(String.Format("\t {0,-3} | {1,-7} | {2,-11} | {3,-20}", company.Id, company.Name, company.Location, company.Description));
             }
+            Console.WriteLine("\t------------------------------------------------");
         }
 
         public static string ValidateCompany(int companyIndex)
@@ -102,45 +105,47 @@ namespace Appointment_Management_System
 
         public static void SendEmailEmployee(string employeeName)
         {
-            string fromMail = "shreejal27@gmail.com";
-            string fromPassword = "vvssfwtuqgwyugzl";
-            
-            MailMessage message = new MailMessage();
-            message.From = new MailAddress(fromMail);
-            message.Subject = "Appointment Booked";
-            message.To.Add(new MailAddress("vipervalorant27@gmail.com"));
-            message.Body = "<html><body>This is from Console Application. This is for Employee mail send by Company </body><html>";
-            message.IsBodyHtml = true;
+            //string fromMail = "shreejal27@gmail.com";
+            //string fromPassword = "vvssfwtuqgwyugzl";
 
-            var smtpClient = new SmtpClient("smtp.gmail.com")
-            {
-                Port = 587,
-                Credentials = new NetworkCredential(fromMail, fromPassword),
-                EnableSsl = true,
-            };
+            //MailMessage message = new MailMessage();
+            //message.From = new MailAddress(fromMail);
+            //message.Subject = "Appointment Booked";
+            //message.To.Add(new MailAddress("vipervalorant27@gmail.com"));
+            //message.Body = "<html><body>This is from Console Application. This is for Employee mail send by Company </body><html>";
+            //message.IsBodyHtml = true;
 
-            smtpClient.Send(message);
+            //var smtpClient = new SmtpClient("smtp.gmail.com")
+            //{
+            //    Port = 587,
+            //    Credentials = new NetworkCredential(fromMail, fromPassword),
+            //    EnableSsl = true,
+            //};
+
+            //smtpClient.Send(message);
+            Console.WriteLine("Email Sent to " + employeeName);
         }
         public static void SendEmailClient(string clientName)
         {
-            string fromMail = "shreejal27@gmail.com";
-            string fromPassword = "vvssfwtuqgwyugzl";
+            //string fromMail = "shreejal27@gmail.com";
+            //string fromPassword = "vvssfwtuqgwyugzl";
 
-            MailMessage message = new MailMessage();
-            message.From = new MailAddress(fromMail);
-            message.Subject = "Appointment Booked";
-            message.To.Add(new MailAddress("vipervalorant27@gmail.com"));
-            message.Body = "<html><body>This is from Console Application. This is for Client mail send by Company </body><html>";
-            message.IsBodyHtml = true;
+            //MailMessage message = new MailMessage();
+            //message.From = new MailAddress(fromMail);
+            //message.Subject = "Appointment Booked";
+            //message.To.Add(new MailAddress("vipervalorant27@gmail.com"));
+            //message.Body = "<html><body>This is from Console Application. This is for Client mail send by Company </body><html>";
+            //message.IsBodyHtml = true;
 
-            var smtpClient = new SmtpClient("smtp.gmail.com")
-            {
-                Port = 587,
-                Credentials = new NetworkCredential(fromMail, fromPassword),
-                EnableSsl = true,
-            };
+            //var smtpClient = new SmtpClient("smtp.gmail.com")
+            //{
+            //    Port = 587,
+            //    Credentials = new NetworkCredential(fromMail, fromPassword),
+            //    EnableSsl = true,
+            //};
 
-            smtpClient.Send(message);
+            //smtpClient.Send(message);
+            Console.WriteLine("Email Sent to " + clientName);
         }
 
     }

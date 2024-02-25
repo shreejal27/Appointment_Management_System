@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -143,7 +144,7 @@ namespace Appointment_Management_System
 
                 if (EmployeePosition.Contains(userSelectPosition))
                 {
-                return userSelectPosition;
+                    return userSelectPosition;
 
                 }
                 else
@@ -155,7 +156,7 @@ namespace Appointment_Management_System
             else
             {
                 Console.WriteLine("There are no employees/positions in this company !!");
-                 Company.SelectCompany();
+                Company.SelectCompany();
                 return "";
             }
 
@@ -170,11 +171,22 @@ namespace Appointment_Management_System
             {
                 if (Employee.company == companyname && Employee.position == position)
                 {
-                    Console.Write($" {Employee.name}");
-                    Console.Write("Available Appointment Dates:");
-                    foreach (var appointmentDate in Employee.appointmentDates)
+                    Console.WriteLine();
+                    Console.WriteLine($"{Employee.name}");
+                    Console.WriteLine();
+                    if (Employee.appointmentDates.Count > 0)
                     {
-                        Console.Write($" {appointmentDate.ToString("yyyy-MM-dd hh:mm")}");
+                        Console.WriteLine("Available Appointment Dates:");
+                        Console.WriteLine();
+                        foreach (var appointmentDate in Employee.appointmentDates)
+                        {
+                            Console.WriteLine($" {appointmentDate.ToString("yyyy-MM-dd hh:mm")}");
+
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("All Appointment Dates are booked for " + Employee.name);
                     }
                     Console.WriteLine();
                 }
@@ -183,18 +195,62 @@ namespace Appointment_Management_System
 
             Console.WriteLine();
             Console.WriteLine("Do you want to book an appointment? (y/n)");
-            char appointmentResult = char.Parse(Console.ReadLine());
-            if (appointmentResult == 'y')
+            string appointmentResult = Console.ReadLine();
+            while (appointmentResult != "y" && appointmentResult != "Y" && appointmentResult != "n" && appointmentResult != "N")
             {
-                Console.WriteLine("Write the name of person: ");
-                string appointmentSelectedEmployee = Console.ReadLine();
-                Console.WriteLine("Select the appointment date from above options: MM/dd/yyyy HH:mm:ss");
-                DateTime appointmentSelectedDate = DateTime.Parse(Console.ReadLine());
-                Client.BookAppointment(appointmentSelectedEmployee, appointmentSelectedDate);
+                Console.WriteLine("Choose between y/n !");
+                appointmentResult = Console.ReadLine();
+            }
+
+            if (appointmentResult == "y" || appointmentResult == "Y")
+            {
+                BookAppointment();
+            }
+            else
+            {
+                Console.WriteLine("Going Back");
+                Company.ViewCompanies();
+                Company.SelectCompany();
             }
 
         }
 
+        public static void BookAppointment()
+        {
+            Console.WriteLine("Write the name of person: ");
+            string appointmentSelectedEmployee = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(appointmentSelectedEmployee))
+            {
+                Console.WriteLine("Invalid input. Please enter a valid name.");
+                BookAppointment(); 
+                return;
+            }
+            DateTime appointmentSelectedDate;
+            Console.WriteLine("Select the appointment date from above options: YYYY/MM/DD HH:MM");
+
+            if (!DateTime.TryParse(Console.ReadLine(), out appointmentSelectedDate))
+            {
+                Console.WriteLine("Invalid date format. Please try again.");
+                BookAppointment(); 
+                return;
+            }
+
+            // Client.BookAppointment(appointmentSelectedEmployee, appointmentSelectedDate);
+
+            bool appointmentResult = ValidateAppointmentValues(appointmentSelectedEmployee, appointmentSelectedDate);
+
+            if (appointmentResult)
+            {
+                ConfirmAppointment(appointmentSelectedEmployee, appointmentSelectedDate);
+            }
+            else
+            {
+                Console.WriteLine("Please check your input and try again");
+                BookAppointment();
+            }
+        }
+
+        public static int EmailFlag;
         public static void ConfirmAppointment(string employeeName, DateTime appDate)
         {
             Console.WriteLine("Confirm Appointment ? (y/n)");
@@ -211,16 +267,24 @@ namespace Appointment_Management_System
                             {
                                 Employee.appointmentDates.Remove(appointmentDate);
                                 Company.SendEmailEmployee(Employee.name);
+                                EmailFlag = 1;
 
                             }
                         }
                     }
 
+
                 }
+            }
+            else if (a == 'n')
+            {
+                Console.WriteLine();
+                EmailFlag = 0;
             }
             else
             {
                 Console.WriteLine();
+                EmailFlag = 0;
             }
         }
 

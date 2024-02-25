@@ -81,20 +81,20 @@ namespace Appointment_Management_System
                     return false;
         }
 
-        public static void BookAppointment(string employeeName, DateTime appointmentDate)
-        {
-            Console.WriteLine("Book Appointment method Called");
-            Console.WriteLine();
-            Console.WriteLine(employeeName);
-            Console.WriteLine(appointmentDate);
+        //public static void BookAppointment(string employeeName, DateTime appointmentDate)
+        //{
+        //    Console.WriteLine("Book Appointment method Called");
+        //    Console.WriteLine();
+        //    Console.WriteLine(employeeName);
+        //    Console.WriteLine(appointmentDate);
 
-            bool appointmentResult = Employee.ValidateAppointmentValues(employeeName, appointmentDate);
+        //    bool appointmentResult = Employee.ValidateAppointmentValues(employeeName, appointmentDate);
 
-            if (appointmentResult)
-            {
-                Employee.ConfirmAppointment(employeeName, appointmentDate);
-            }
-        }
+        //    if (appointmentResult)
+        //    {
+        //        Employee.ConfirmAppointment(employeeName, appointmentDate);
+        //    }
+        //}
 
     }
 }
